@@ -4,14 +4,20 @@ import java.util.*;
 
 public class Peak {
 	
-    boolean end;
+	boolean end;
 	public float delta;
 	public int integration;
 	public int multiplicity;
+	int[] adjacentIndex; //list with indices of possible adjacent atoms- indices are of peaks ArrayList
 	Hashtable electronEnvironment = new Hashtable();
-	public Peak(){
-	int[] adjacentIndex = new int[Spectrum.peaks.size()]; //list with indices of possible adjacent atoms- indices are of peaks ArrayList
+	
+	
+	public Peak(Spectrum spectrum){
+		 adjacentIndex = new int[spectrum.peaks.size()];
+		 
 	}
+	
+	
 	public void typeEval(){
 		if(2.5 > delta){
 			electronEnvironment.put("alkyl", new Boolean(true));
@@ -37,18 +43,18 @@ public class Peak {
 	}
 	
 	public void endAtomEval(){
-		if(electronEnvironment.get("alkyl") && (integration%3 == 0)){
+		if(((Boolean)(electronEnvironment.get("alkyl"))).booleanValue() && (integration%3 == 0)){
 			end = true;
 		}
-		if(electronEnvironment.get("vinyl") && (integration%2 == 0)){
+		if(((Boolean)(electronEnvironment.get("vinyl"))).booleanValue() && (integration%2 == 0)){
 			end = true;
 		}
 	}
 	
-	public possibleAdjacent(){
+	public void possibleAdjacent(Spectrum spectrum){
 		int j = 0;
-		for(int i =0; i< Spectrum.peaks.size(); i++){
-			if(multiplicity == Spectrum.peaks.get(i).integration){
+		for(int i =0; i< spectrum.peaks.size(); i++){
+			if(multiplicity == spectrum.peaks.get(i).integration){
 				adjacentIndex[j] = i;
 				j++;
 			}

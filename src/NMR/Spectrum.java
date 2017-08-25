@@ -8,7 +8,7 @@ public class Spectrum {
     int nitrogen;
     int halogen;
     int hydrogenDeficit;
-    static ArrayList peaks = new ArrayList(); //list of peak objects
+    ArrayList peaks = new ArrayList(); //list of peak objects
     
     public Spectrum(){
     }
